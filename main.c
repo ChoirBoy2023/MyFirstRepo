@@ -16,14 +16,22 @@ int main( int argc, char** argv )
       snprintf(aStr,(stringSize-1),"I am the aStr string\n");
       numOfNumbers = 100;
       if( (numbers = (int32_t*) calloc( numOfNumbers,sizeof(int32_t) )) != NULL )
+      {
          for( int32_t i = 0; i < numOfNumbers; ++i )
             numbers[i] = 123 * (i+1);
+      }
 
       numOfCars = 8;
       if( (cars = (int32_t*) calloc( numOfCars, sizeof(int32_t) )) != NULL )
       {
          for( int32_t i = 0; i < numOfCars; ++i )
             cars[i] = numbers[i] * 4;
+
+         for( int32_t i = 0; i < numOfCars; ++i )
+            fprintf(stdout,"cars[%2.2d] = %d\n",i,cars[i]);
+
+         free( cars );
+         cars = NULL;
       }
    }
    else  // Error case
