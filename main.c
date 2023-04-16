@@ -2,6 +2,10 @@
 #include "stdio.h"
 
 #define bool32_t int32_t
+#ifndef TRUE
+   #define TRUE  (bool32_t)(1)
+   #define FALSE (bool32_t)(0)
+#endif
 
 // Function prototypes
 bool32_t allocateTheArray( int32_t numItems, int32_t **arrayToAllocate );
@@ -11,6 +15,8 @@ bool32_t allocateCars( int32_t  numCars, int32_t **carsArray, int32_t *numbersAr
 void freeTheNumbers( int32_t **numbersArray );
 void freeTheCars( int32_t **carsArray );
 bool32_t doNumbersAndCars( void );
+bool32_t doNumbers( int32_t numNums, int32_t **numbersArray );
+bool32_t doCars( int32_t numCars, int32_t **carsArray, int32_t *numbersArray );
 
 // Function bodies
 bool32_t allocateTheArray( int32_t numItems, int32_t **arrayToAllocate )
@@ -31,7 +37,7 @@ void freeTheArray( int32_t **arrayToFree )
 
 bool32_t allocateNumbers( int32_t  numNums, int32_t **numbersArray )
 {
-   bool32_t  returnStatus = 0;
+   bool32_t  returnStatus = FALSE;
    if( numbersArray != NULL )
       if( (returnStatus = allocateTheArray( numNums, numbersArray )) )
          for( int32_t i = 0; i < numNums; ++i )
@@ -73,27 +79,42 @@ void freeTheCars( int32_t **carsArray )
    return;
 }
 
+bool32_t doNumbers( int32_t numNums, int32_t **numbersArray )
+{
+   bool32_t    returnStatus = FALSE;
+   if( allocateNumbers(numNums, numbersArray ) )
+   {
+      for( int32_t i = 0; i < numNums; ++i )
+         fprintf(stdout,"numbersArray[%2.2d] = %d\n",i,(*numbersArray)[i]);
+      returnStatus = TRUE;
+   }
+   return( returnStatus );
+}
+
+bool32_t doCars( int32_t numCars, int32_t **carsArray, int32_t *numbersArray )
+{
+   bool32_t    returnStatus = FALSE;
+   if( numbersArray != NULL && allocateCars(numCars, carsArray, numbersArray) )
+   {
+      for( int32_t i = 0; i < numCars; ++i )
+         fprintf(stdout,"carsArray[%2.2d] = %d\n",i,(*carsArray)[i]);
+      freeTheCars( carsArray );
+      returnStatus = TRUE;
+   }
+   return( returnStatus );
+}
+
 bool32_t doNumbersAndCars( void )
 {
-   bool32_t     returnStatus = 0;
+   bool32_t     returnStatus = FALSE;
    int32_t	*numbers     = NULL;
    int32_t	*cars        = NULL;
    int32_t	numOfNumbers = 100;
    int32_t	numOfCars    = 8;
 
-   if( allocateNumbers(numOfNumbers, &numbers ) )
+   if( doNumbers(numOfNumbers, &numbers) )
    {
-      for( int32_t i = 0; i < numOfNumbers; ++i )
-         fprintf(stdout,"numbers[%2.2d] = %d\n",i,numbers[i]);
-
-      if( allocateCars(numOfCars, &cars, numbers ) )
-      {
-         for( int32_t i = 0; i < numOfCars; ++i )
-            fprintf(stdout,"cars[%2.2d] = %d\n",i,cars[i]);
-
-         freeTheCars( &cars );
-         returnStatus = 1;
-      }
+      returnStatus = (doCars(numOfCars, &cars, numbers) ? TRUE : returnStatus);
       freeTheNumbers( &numbers );
    }
    return( returnStatus );
