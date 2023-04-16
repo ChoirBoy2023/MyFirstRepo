@@ -19,6 +19,9 @@ int main( int argc, char** argv )
       {
          for( int32_t i = 0; i < numOfNumbers; ++i )
             numbers[i] = 123 * (i+1);
+
+         for( int32_t i = 0; i < numOfNumbers; ++i )
+            fprintf(stdout,"numbers[%2.2d] = %d\n",i,numbers[i]);
       }
 
       numOfCars = 8;
