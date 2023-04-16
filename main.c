@@ -51,7 +51,7 @@ bool32_t allocateNumbers( int32_t  numNums, int32_t **numbersArray )
 
 bool32_t allocateCars( int32_t  numCars, int32_t **carsArray, int32_t *numbersArray )
 {
-   bool32_t  returnStatus = 0;
+   bool32_t  returnStatus = FALSE;
    if( carsArray != NULL )
       if( (returnStatus = allocateTheArray( numCars, carsArray )) )
          if( numbersArray != NULL )
