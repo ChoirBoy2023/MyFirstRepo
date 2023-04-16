@@ -129,10 +129,9 @@ int main( int argc, char** argv )
    if( (aStr = (char*) calloc(stringSize, sizeof(char))) != NULL )
    {
       snprintf(aStr,(stringSize-1),"I am the aStr string\n");
-      rc = (doNumbersAndCars() ? 0 : rc);
    }
    else  // Error case - string
       perror("Unable to allocate a string");
 
-   return( rc );
+   return( doNumbersAndCars() ? 0 : rc );
 }
