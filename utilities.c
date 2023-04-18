@@ -14,6 +14,7 @@ void printBlue( void )
 void printRed( void )
 {
    printf("I'm red!\n");
+   printf("Hello World!");
    return;
 }
 
