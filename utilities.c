@@ -6,6 +6,6 @@ void printGreen( void );
 void printGreen( void )
 {
    printf("I'm green!\n");
-   printf("Hello World!\n");
+   printf("Hello World again!\n");
    return;
 }
