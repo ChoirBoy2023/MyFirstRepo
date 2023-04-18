@@ -1,22 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void printBlue( void );
-void printRed( void );
 void printGreen( void );
-
-void printBlue( void )
-{
-   printf("I'm blue!\n");
-   return;
-}
-
-void printRed( void )
-{
-   printf("I'm red!\n");
-   printf("Hello World!");
-   return;
-}
 
 void printGreen( void )
 {
